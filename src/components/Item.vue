@@ -1,10 +1,12 @@
 <template>
   <li>
     <label>
-      <input type="checkbox" :checked='todo.done'/>
+      <input type="checkbox" :checked='todo.done' @click="handleCheck(todo.id)"/>
+      <!-- v-model双向数据绑定，会修改props，而VUE规定props不能修改 ，所以不建议使用-->
+      <!-- <input type="checkbox" v-model="todo.done"/> -->
       <span>{{todo.title}}</span>
     </label>
-    <button class="btn btn-danger" style="display:none">删除</button>
+    <button class="btn btn-danger" @click="deleteItem(todo.id)">删除</button>
   </li>
 </template>
 
@@ -12,7 +14,17 @@
   export default {
     name: 'Item',
     //声明接受todo对象
-    props:['todo'],
+    props:['todo','checkTodo','deleteTodo'],
+    methods:{
+      handleCheck(id){
+        this.checkTodo(id)
+      },
+      deleteItem(id){
+        if(confirm('确定删除吗')){
+          this.deleteTodo(id)
+        }
+      }
+    }
   }
 </script>
 
@@ -52,5 +64,10 @@
   li:last-child {
     border-bottom: none;
   }
-
+  li:hover{
+    background: tomato;
+  }
+  li:hover button{
+    display: block;
+  }
 </style>

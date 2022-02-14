@@ -3,7 +3,7 @@
   <div class="todo-container">
     <div class="todo-wrap">
       <Toop :addTodo='addTodo'/>
-      <List :todos='todos'/>
+      <List :todos='todos' :checkTodo = 'checkTodo' :deleteTodo='deleteTodo'/>
       <MyFooter/>
     </div>
   </div>
@@ -32,8 +32,21 @@
       }
     },
     methods:{
+      //添加todo
       addTodo(todoObj){
         this.todos.unshift(todoObj)
+      },
+      //取消勾选todo
+      checkTodo(id){
+        this.todos.forEach((todo)=>{
+          if(todo.id === id) todo.done = !todo.done
+        })
+      },
+      //删除一个todo
+      deleteTodo(id){
+        this.todos = this.todos.filter((todo)=>{
+          return todo.id !== id
+        })
       }
     }
   }
