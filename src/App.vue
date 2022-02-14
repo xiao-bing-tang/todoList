@@ -4,7 +4,7 @@
     <div class="todo-wrap">
       <Toop :addTodo='addTodo'/>
       <List :todos='todos' :checkTodo = 'checkTodo' :deleteTodo='deleteTodo'/>
-      <MyFooter/>
+      <MyFooter :todos='todos' :checkAllTodo='checkAllTodo' :clearAllTodo='clearAllTodo'/>
     </div>
   </div>
 </div>
@@ -46,6 +46,18 @@
       deleteTodo(id){
         this.todos = this.todos.filter((todo)=>{
           return todo.id !== id
+        })
+      },
+      //全选，取消全选
+      checkAllTodo(done){
+        this.todos.forEach((todo)=>{
+          todo.done = done
+        })
+      },
+      //清楚所有代办事项todo
+      clearAllTodo(){
+        this.todos = this.todos.filter((todo)=>{
+          return !todo.done
         })
       }
     }
